@@ -30,7 +30,7 @@
                     @Html.DisplayNameFor(model => model.Facilities)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Facilities)
+                  Capacity
                 </th>
                 <th></th>
             </tr>
@@ -46,9 +46,21 @@
                         @Html.DisplayFor(modelItem => item.Capacity)
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+                <tr>
+                    <td>Animals</td>
+                    <td></td>
+                </tr>
+                        @foreach (var animal in item.Animals)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => animal.AnimalType.Species)
+                                </td>
+                            </tr>
+                        }
+             }
+            </tbody>
+        </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

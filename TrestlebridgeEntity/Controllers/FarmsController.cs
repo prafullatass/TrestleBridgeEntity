@@ -40,7 +40,7 @@ namespace TrestlebridgeEntity.Controllers
             //    join Facilities fc on fc.FarmId = f.Id
             //    group by f.RegisteredName
             //").ToList();
-
+           
             var facilityCount = (from facility in _context.Facilities
                     group facility by new {
                         facility.FarmId,
@@ -72,7 +72,10 @@ namespace TrestlebridgeEntity.Controllers
             
             var farm = await _context.Farms
                 .Include(f => f.Facilities)
-                .ThenInclude(f => f.Type)
+                    .ThenInclude(f => f.Type)
+                .Include(f => f.Facilities)
+                    .ThenInclude(f=>f.Animals)
+                        .ThenInclude(f=>f.AnimalType)
                 .FirstOrDefaultAsync(m => m.Id == id);
  
             if (farm == null)

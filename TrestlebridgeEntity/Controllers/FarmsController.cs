@@ -69,14 +69,16 @@ namespace TrestlebridgeEntity.Controllers
             {
                 return NotFound();
             }
-
+            
             var farm = await _context.Farms
+                .Include(f => f.Facilities)
+                .ThenInclude(f => f.Type)
                 .FirstOrDefaultAsync(m => m.Id == id);
+ 
             if (farm == null)
             {
                 return NotFound();
             }
-
             return View(farm);
         }
 
